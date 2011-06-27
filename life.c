@@ -2,16 +2,15 @@
 
 Game of life, written just for kicks
 cl3mens 2011-06-19
-updated 2011-06-23
 
 */
 
 #include <stdio.h>
 
-int dispField[24][80];
-int workField[24][80];
-int arrXLen=80; /*sizeof(workField[0])/sizeof(int);*/
-int arrYLen=24; /*(sizeof(workField)/sizeof(int))/arrXLen;*/
+char dispField[21][80];
+char workField[21][80];
+int arrXLen;
+int arrYLen;
 int active=0;
 int empty=0;
 int stale=0;
@@ -118,9 +117,6 @@ int studyRow(row) {
 	dispField[row][col]=1;
       }
     }
-    /* Uncomment for debug
-    printf("%d,%d: %d\n",row,col,flanders);
-    */
   }
 }
 
@@ -148,6 +144,9 @@ int printField() {
 
 
 int main(int argc, char *argv[]) {
+  arrXLen=sizeof(workField[0])/sizeof(char);
+  arrYLen=(sizeof(workField)/sizeof(char))/arrXLen;
+
   fillRow();
 
   while(main) {
@@ -159,13 +158,4 @@ int main(int argc, char *argv[]) {
     calcField();
     sleep(1);
   }
-
-  /* Uncomment for debug...
-  printf("%d fields active\n",active);
-  printf("%d fields empty\n",empty);
-  printf("%d fields alone\n",alone);
-  printf("%d fields stale\n",stale);
-  printf("%d fields overcrowded\n",overcrowd);
-  printf("%d fields born\n",born);
-  */
 }
